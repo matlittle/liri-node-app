@@ -6,7 +6,8 @@ const twitterKeys = {
 }
 
 const spotifyKeys = {
-
+	id: 'dd0fe8a170df49519b463e19a2dff27c',
+	secret: '32ad82eb95bd4af98026d9812b1a8a18'
 }
 
 module.exports = {

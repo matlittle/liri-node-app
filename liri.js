@@ -53,13 +53,13 @@ function logTweets() {
 function logSong(song) {
 	if (!song) console.log('Please provide a song');
 
-	var qUrl = 'https://accounts.spotify.com/api'
+	const Spotify = require('node-spotify-api');
 
-	request.post(
-		`${qUrl}/token`,
+	var client = new Spotify(Keys.spotify);
 
+	
 
-	)
+	
 }
 
 function logToFile(str) {
