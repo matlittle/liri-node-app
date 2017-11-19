@@ -6,7 +6,10 @@ const twitterKeys = {
 }
 
 const spotifyKeys = {
-	
+
 }
 
-module.exports = twitterKeys;
+module.exports = {
+	twitter: twitterKeys,
+	spotify: spotifyKeys
+}

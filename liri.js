@@ -1,6 +1,7 @@
-// Packages
+// Dependencies
 const fs = require('fs');
 const request = require('request')
+const Keys = require('./keys.js');
 
 var cmd = process.argv[2];
 
@@ -25,9 +26,8 @@ switch (cmd) {
 
 function logTweets() {
 	const Twitter = require('twitter');
-	const Keys = require('./keys.js');
 
-	var client = new Twitter(Keys);
+	var client = new Twitter(Keys.twitter);
 
 	var params = {
 		count: '20'
@@ -57,7 +57,7 @@ function logSong(song) {
 
 	request.post(
 		`${qUrl}/token`,
-		
+
 
 	)
 }
