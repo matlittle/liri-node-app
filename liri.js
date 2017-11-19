@@ -10,7 +10,6 @@ switch (cmd) {
 		logTweets();
 		break;
 	case 'spotify-this-song':
-		console.log("spotify thing");
 		logSong(process.argv[3]);
 		break;
 	case 'movie-this':
@@ -51,15 +50,29 @@ function logTweets() {
 }
 
 function logSong(song) {
-	if (!song) console.log('Please provide a song');
+	if (!song) song = "The Sign, Ace of Base";
 
 	const Spotify = require('node-spotify-api');
+	const client = new Spotify(Keys.spotify);
 
-	var client = new Spotify(Keys.spotify);
+	client.search({
+		type: 'track',
+		query: song,
+		limit: 1
+	}, (err, data) => {
+		if (err) throw err;
 
-	
+		var str = "";
+		const ret = data.tracks.items[0];
 
-	
+		str += `Song:  ${ret.name}\n`
+		str += `Artist: ${ret.artists[0].name}\n`
+		str += `Album: ${ret.album.name}\n`
+		str += `Preview: ${ret.external_urls.spotify}\n`
+
+		console.log(str);
+		logToFile(str);
+	});
 }
 
 function logToFile(str) {
