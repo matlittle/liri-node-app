@@ -26,11 +26,11 @@ function logTweets() {
 
 	const client = new Twitter(Keys.twitter);
 
-	const params = {
+	var params = {
 		count: '20'
 	};
 
-	client.get('statuses/user_timeline', params, function(err, tweets, res){
+	Client.get('statuses/user_timeline', params, function(err, tweets, res){
 		if (!err) {
 			var str = '';
 			tweets.forEach( function(tweet) {
@@ -77,12 +77,12 @@ function logMovie(movie) {
 	if (!movie) movie = "Mr. Nobody";
 
 	const Request = require('request');
-	const ApiKey = '40e9cece';
+	const apiKey = '40e9cece';
 	var url = `http://www.omdbapi.com?apikey=${ApiKey}`;
 
 	url += `&t=${movie.replace(' ', '+')}`;
 
-	request(url, (err, res, body) => {
+	Request(url, (err, res, body) => {
 		console.log( JSON.stringify(body),replace(',', ',\n') );
 	})
 
