@@ -1,6 +1,4 @@
 // Dependencies
-const fs = require('fs');
-const request = require('request')
 const Keys = require('./keys.js');
 
 var cmd = process.argv[2];
@@ -26,9 +24,9 @@ switch (cmd) {
 function logTweets() {
 	const Twitter = require('twitter');
 
-	var client = new Twitter(Keys.twitter);
+	const client = new Twitter(Keys.twitter);
 
-	var params = {
+	const params = {
 		count: '20'
 	};
 
@@ -75,10 +73,28 @@ function logSong(song) {
 	});
 }
 
+function logMovie(movie) {
+	if (!movie) movie = "Mr. Nobody";
+
+	const Request = require('request');
+	const ApiKey = '40e9cece';
+	var url = `http://www.omdbapi.com?apikey=${ApiKey}`;
+
+	url += `&t=${movie.replace(' ', '+')}`;
+
+	request(url, (err, res, body) => {
+		console.log( JSON.stringify(body),replace(',', ',\n') );
+	})
+
+}
+
 function logToFile(str) {
+	const FS = require('fs');
+
 	var date = new Date;
 	var newStr = `\n${date.toString()}:\n${str}\n`
-	fs.appendFile('log.txt', newStr, (err) => {
+
+	FS.appendFile('log.txt', newStr, (err) => {
 		if(err) throw err;
 	});
 }
