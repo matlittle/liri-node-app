@@ -8,10 +8,10 @@ switch (cmd) {
 		logTweets();
 		break;
 	case 'spotify-this-song':
-		logSong(process.argv[3]);
+		logSong( process.argv[3] );
 		break;
 	case 'movie-this':
-		console.log("movie thing");
+		logMovie( process.argv[3] );
 		break;
 	case 'do-what-it-says':
 		console.log("do what it says");
@@ -78,12 +78,34 @@ function logMovie(movie) {
 
 	const Request = require('request');
 	const apiKey = '40e9cece';
-	var url = `http://www.omdbapi.com?apikey=${ApiKey}`;
+	var url = `http://www.omdbapi.com?apikey=${apiKey}`;
 
 	url += `&t=${movie.replace(' ', '+')}`;
 
 	Request(url, (err, res, body) => {
-		console.log( JSON.stringify(body),replace(',', ',\n') );
+		var obj = JSON.parse(body);
+		var str = '';
+		var imdbRate, rtRate;
+
+		obj.Ratings.forEach( (rating) => {
+			if (rating.Source === 'Rotten Tomatoes') {
+				rtRate = rating.Value;
+			} else if (rating.Source === 'Internet Movie Database') {
+				imdbRate = rating.Value;
+			}
+		});
+
+		str += `Title: ${obj.Title}\n`;
+		str += `Year: ${obj.Year}\n`
+		str += `IMDB Rating: ${imdbRate}\n`
+		str += `Rotten Tomatoes Rating: ${rtRate}\n`
+		str += `Country: ${obj.Country}\n`
+		str += `Language: ${obj.Language}\n`
+		str += `Plot: ${obj.Plot}\n`
+		str += `Actors: ${obj.Actors}\n`
+
+		console.log( str );
+		logToFile( str );
 	})
 
 }
