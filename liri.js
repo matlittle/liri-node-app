@@ -1,5 +1,6 @@
 // Dependencies
 const Keys = require('./keys.js');
+const FS = require('fs');
 
 var cmd = process.argv[2];
 
@@ -110,9 +111,11 @@ function logMovie(movie) {
 
 }
 
-function logToFile(str) {
-	const FS = require('fs');
+function loadCommand() {
+	
+}
 
+function logToFile(str) {
 	var date = new Date;
 	var newStr = `\n${date.toString()}:\n${str}\n`
 
