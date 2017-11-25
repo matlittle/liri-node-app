@@ -4,22 +4,29 @@ const FS = require('fs');
 
 var cmd = process.argv[2];
 
-switch (cmd) {
-	case 'my-tweets':
-		logTweets();
-		break;
-	case 'spotify-this-song':
-		logSong( process.argv[3] );
-		break;
-	case 'movie-this':
-		logMovie( process.argv[3] );
-		break;
-	case 'do-what-it-says':
-		console.log("do what it says");
-		break;
-	default:
-		console.log('Unrecognized command');
-		break;
+
+if (cmd === 'do-what-it-says') {
+	readFile();
+} else {
+	var opt = process.argv[3];
+	runCmd(cmd, opt);
+}
+
+function runCmd(cmd, opt) {
+	switch (cmd) {
+		case 'my-tweets':
+			logTweets();
+			break;
+		case 'spotify-this-song':
+			logSong( opt );
+			break;
+		case 'movie-this':
+			logMovie( opt );
+			break;
+		default:
+			console.log('Unrecognized command');
+			break;
+	}
 }
 
 function logTweets() {
@@ -111,8 +118,14 @@ function logMovie(movie) {
 
 }
 
-function loadCommand() {
-	
+function readFile() {
+	FS.readFile('./random.txt', 'utf8', (err, data) => {
+		var cmdArr = data.split(',');
+		var cmd = cmdArr[0];
+		var opt = cmdArr[1];
+
+		runCmd(cmd, opt);
+	});
 }
 
 function logToFile(str) {
