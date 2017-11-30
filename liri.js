@@ -38,7 +38,7 @@ function logTweets() {
 		count: '20'
 	};
 
-	Client.get('statuses/user_timeline', params, function(err, tweets, res){
+	client.get('statuses/user_timeline', params, function(err, tweets, res){
 		if (!err) {
 			var str = '';
 			tweets.forEach( function(tweet) {
